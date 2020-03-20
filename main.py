@@ -43,3 +43,44 @@ for key, value in dictionary.items():
     for i in key:
         if i in letter_b:
             dict_up[key] = value
+            
+start_words = []
+kol = int(input('Выберите количество предложений от 1 до ' + str(predl)))
+osnov = ''
+for j in range(kol):
+    for k in dict_up.keys():
+        start_words.append(k)
+    if len(start_words) == 0:
+        break
+    if len(start_words) == 1:
+        rand = 0
+    else:
+        rand = random.randint(0, len(start_words) - 1)
+    start_word = start_words[rand]
+    new_text = start_word
+    slov = random.randint(5, 8)
+    copy_list = dictionary[start_word]
+
+    for i in range(slov - 1):
+        if len(copy_list) == 0:
+            break
+        if len(copy_list) == 1:
+            rand_2 = 0
+        else:
+            rand_2 = random.randint(0, len(copy_list) - 1)
+        second = copy_list[rand_2]
+        new_text = new_text + ' ' + second
+        copy_list = dictionary[second]
+
+    symbol_end = '.!?'
+    for m in symbol_end:
+        if m in new_text[:-1]:
+            new_text = new_text.replace(m, '')
+    if new_text[-1] not in symbol_end and new_text[-1] != ',':
+        new_text = new_text + '.'
+    elif new_text[-1] == ',':
+        new_text = new_text[:-1] + '.'
+    new_text = new_text.capitalize()
+    osnov += new_text + ' '
+    new_text = ''
+print(osnov)
